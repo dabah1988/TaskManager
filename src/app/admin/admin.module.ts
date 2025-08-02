@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AboutComponent } from './about/about.component';
 import { DashboardService } from '../dashboard.service';
+import { ProjectsComponent } from './projects/projects.component';
+ 
 
 
 
@@ -13,9 +15,10 @@ import { DashboardService } from '../dashboard.service';
     CommonModule,
     DashboardComponent,
     MyProfileComponent,
-    AboutComponent
+    AboutComponent,
+    ProjectsComponent
   ],
-  exports:[DashboardComponent,MyProfileComponent,AboutComponent], 
+  exports:[DashboardComponent,MyProfileComponent,AboutComponent,ProjectsComponent], 
   providers: [DashboardService]
 })
 export class AdminModule { 

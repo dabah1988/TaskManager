@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'  // rend ce service singleton global
+})
 
 export class DashboardService {
 
