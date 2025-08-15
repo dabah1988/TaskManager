@@ -34,4 +34,10 @@ export class ManageProjectServiceService {
   {    
     return this.httpClient.delete<boolean>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}` );
   }
+
+  
+    searchProject(searchBy:string,searchText:string):Observable<Project[]>
+  {    
+    return this.httpClient.get<Project[]>(`${environment.taskManagerMicroserviceUrl}seach/${searchBy}/${searchText}` );
+  }
 }

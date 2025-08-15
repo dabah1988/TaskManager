@@ -17,6 +17,8 @@ export class ProjectsComponent implements OnInit {
  newProject: ProjectAddRequest = new ProjectAddRequest(); 
  editProject: Project = new Project();  
  editIndex:number=0;
+ searchBy:string='';
+ searchText:string='';  
 
 
   constructor(private myProjectService : ManageProjectServiceService ) {
@@ -88,6 +90,18 @@ export class ProjectsComponent implements OnInit {
       error: (err) => console.error('Error occured during updation', err)
     });
  }
+
+   onSearchClick() {
+    this.myProjectService.searchProject(this.searchBy,this.searchText).subscribe({
+      next: (myprojetcs) => 
+        {
+          console.log("project found : "+myprojetcs); 
+          this.projects = myprojetcs; 
+        },
+      error: (err) => console.error('Error occured during searching', err)
+    });
+ }
+
 
  formatDateForDisplay(dateStr: string | null): string|null {
     if (!dateStr) return '';
