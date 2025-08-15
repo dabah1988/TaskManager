@@ -1,5 +1,5 @@
 export class ProjectResponse {
-    projectId: number = 0;
+    projectId: string = ' ';
     projectName : string = '';
     projectDescription : string = '';
     dateOfStart : string = '';

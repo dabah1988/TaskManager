@@ -19,9 +19,19 @@ export class ManageProjectServiceService {
      return this.httpClient.get<Project[]>(environment.taskManagerMicroserviceUrl);  
   }
 
-
   insertProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
-  {
-    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl,newProject);
+  {    
+    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl, newProject );
+  }
+
+    updateProject(existingProject:Project):Observable<Project>
+  {    
+    return this.httpClient.put<Project>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}`, 
+      existingProject );
+  }
+
+    deleteProject(existingProject:Project):Observable<boolean>
+  {    
+    return this.httpClient.delete<boolean>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}` );
   }
 }
