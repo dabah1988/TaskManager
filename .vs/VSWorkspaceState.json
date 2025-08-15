@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\admin",
-    "\\src\\app\\Services"
+    "\\.angular"
   ],
   "PreviewInSolutionExplorer": false
 }
