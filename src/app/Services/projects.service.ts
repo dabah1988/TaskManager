@@ -15,10 +15,18 @@ export class ProjectsService {
   { 
 
   }
-  getAllProjects():Observable<Project[]>
-  {
-    return this.httpClient.get<Project[]>(environment.taskManagerMicroserviceUrl);
-  } 
+  getProjects(pageNumber: number, pageSize: number): Observable<Project[]> {
+  const params = {
+    pageNumber: pageNumber.toString(),
+    pageSize: pageSize.toString()
+  };
+
+  return this.httpClient.get<Project[]>(
+    `${environment.taskManagerMicroserviceUrl}/projects`, 
+    { params }
+  );
+}
+
 
     addProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
   {

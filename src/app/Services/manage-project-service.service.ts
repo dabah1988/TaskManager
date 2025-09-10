@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project';
@@ -14,9 +14,12 @@ import { environment } from '../environment';
 export class ManageProjectServiceService {
 
   constructor(private httpClient:HttpClient) { }
-  getAllProjects():Observable<Project[]>
+  getProjects(pageNumber: number = 2, pageSize: number = 10):Observable<Project[]>
   {
-     return this.httpClient.get<Project[]>(environment.taskManagerMicroserviceUrl);  
+       const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+     return this.httpClient.get<ProjectResponse[]>(environment.taskManagerMicroserviceUrl,{params});  
   }
 
   insertProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
