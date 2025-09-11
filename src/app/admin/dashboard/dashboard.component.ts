@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
+import { NgbAccordionModule, NgbDropdownMenu, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    NgbDropdownModule,
+    NgbAccordionModule
+  ],
   providers: [DashboardService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -86,5 +91,8 @@ constructor(private dashbosardService:DashboardService) {
 
   onProjectChange($event:any){
     console.log($event.target.innerHTML);
+  }
+   onYearSelected(year: number) {
+    console.log('Année sélectionnée:', year);
   }
 }
