@@ -14,7 +14,7 @@ import { environment } from '../environment';
 export class ManageProjectServiceService {
 
   constructor(private httpClient:HttpClient) { }
-  getProjects(pageNumber: number = 2, pageSize: number = 10):Observable<Project[]>
+  getProjects(pageNumber: number = 2, pageSize: number = 10):Observable<ProjectResponse[]>
   {
        const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
@@ -39,8 +39,13 @@ export class ManageProjectServiceService {
   }
 
   
-    searchProject(searchBy:string,searchText:string):Observable<Project[]>
+    searchProject(searchBy:string,searchText:string,pageNumber: number = 2, pageSize: number = 10):Observable<ProjectResponse[]>
   {    
-    return this.httpClient.get<Project[]>(`${environment.taskManagerMicroserviceUrl}seach/${searchBy}/${searchText}` );
+       const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+       .set('searchBy',searchBy)
+       .set('searchText',searchText);
+    return this.httpClient.get<ProjectResponse[]>(`${environment.taskManagerMicroserviceUrl}search`,{params} );
   }
 }

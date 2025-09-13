@@ -5,6 +5,7 @@ import { Project } from '../../models/project';
 import { CommonModule } from '@angular/common';
 import { ProjectAddRequest } from '../../models/project-add-request';
 import { Utilitaire } from '../../models/utilitaire';
+import { ProjectResponse } from '../../models/project-response';
 
 @Component({
   selector: 'app-projects',
@@ -13,12 +14,15 @@ import { Utilitaire } from '../../models/utilitaire';
   styleUrl: './projects.component.scss'
 })
 export class ProjectsComponent implements OnInit {
- projects: Project[] = [];
+ projects: ProjectResponse[] = [];
  newProject: ProjectAddRequest = new ProjectAddRequest(); 
- editProject: Project = new Project();  
+ editProject: Project= new Project();  
  editIndex:number=0;
  searchBy:string='';
  searchText:string='';  
+ pageNumber:number=1;
+ pageSize:number=25
+ searchByOptions:string[]=[];
 
 
   constructor(private myProjectService : ManageProjectServiceService ) {
@@ -26,7 +30,9 @@ export class ProjectsComponent implements OnInit {
    }
    
   ngOnInit(): void {
-        this.myProjectService.getProjects(1,5).subscribe({
+       this.searchByOptions = Object.keys(new Project());
+        this.searchBy = this.searchByOptions.find(opt => opt ==  'name') || '';
+        this.myProjectService.getProjects(1,15).subscribe({
       next: (projects) => 
         {
           this.projects = projects;
@@ -92,13 +98,16 @@ export class ProjectsComponent implements OnInit {
  }
 
    onSearchClick() {
-    this.myProjectService.searchProject(this.searchBy,this.searchText).subscribe({
+    this.myProjectService.searchProject(this.searchBy,this.searchText,this.pageNumber,this.pageSize).subscribe({
       next: (myprojetcs) => 
         {
           console.log("project found : "+myprojetcs); 
           this.projects = myprojetcs; 
         },
-      error: (err) => console.error('Error occured during searching', err)
+      error: (err) =>
+        {
+           console.error('Error occured during searching', err);
+        } 
     });
  }
 
@@ -107,4 +116,6 @@ export class ProjectsComponent implements OnInit {
     if (!dateStr) return '';
     return Utilitaire.convertoYYYYMDD(dateStr);
   }
+
+  
 }

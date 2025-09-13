@@ -98,10 +98,11 @@
     id="dropdownYears"
     ngbDropdownToggle
   >
-    Choisir une année
+    Année
   </button>
   <div ngbDropdownMenu aria-labelledby="dropdownYears">
     <button
+
       ngbDropdownItem
       *ngFor="let year of Years"
       [ngStyle]="year === 2025 ? {'color': 'gray', 'font-weight': 'bold'} : {}"

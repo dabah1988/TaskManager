@@ -1,8 +1,8 @@
 export class ProjectAddRequest {
-    ProjectName: string = '';
-   ProjectDescription: string = '';
-   DateOfStart: string|null = ProjectAddRequest.todayDate(); // date du jour;
-    TeamSize: number = 1;
+    projectName: string = '';
+   projectDescription: string = '';
+   dateOfStart: string|null = ProjectAddRequest.todayDate(); // date du jour;
+    teamSize: number = 1;
 
     static todayDate(): string {
     const today = new Date();

@@ -1,172 +1,270 @@
-<h1>Projects</h1>
+<h1 class="mb-4">Projects</h1>
 
+<!-- Search section -->
 <div class="row mb-3">
   <div class="col-8 mx-auto">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newModal"  >
-      Create Project
-    </button>
+
+    <!-- Search By -->
+    <div class="row mb-3">
+      <label for="drpSearchBy" class="col-form-label col-3">Search By</label>
+      <div class="col-9">
+        <select id="drpSearchBy" name="searchBy" class="form-control" [(ngModel)]="searchBy">
+          <option *ngFor="let option of searchByOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Search Input -->
+    <div class="row mb-3">
+      <label for="txtSearchText" class="col-form-label col-3">Search Text</label>
+      <div class="col-9">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="txtSearchText"
+            name="searchText"
+            [(ngModel)]="searchText"
+          />
+          <button class="btn btn-outline-secondary" type="button" (click)="onSearchClick()">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Create Button -->
+    <div class="mb-4">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#newModal"
+      >
+        Create Project
+      </button>
+    </div>
   </div>
 </div>
 
+<!-- Table Section -->
 <div class="row">
   <div class="col-8 mx-auto">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <!-- <th>Project Id</th> -->
           <th>Project Name</th>
           <th>Project Description</th>
           <th>Date of Start</th>
           <th>Team Size</th>
-          <th colspan="2" style="text-align: center;">Actions </th>
+          <th colspan="2" class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let project of projects; let i = index">
-          <!-- <td>{{ project.projectId }}</td> -->
           <td>{{ project.projectName }}</td>
           <td>{{ project.projectDescription }}</td>
           <td>{{ formatDateForDisplay(project.dateOfStart) }}</td>
-          <td>{{  project.teamSize }}</td>
-          <td><td><button type="button" class="btn btn-info" data-bs-toggle="modal" 
-            data-bs-target="#editModal" (click)="onEditClick($event,i)">Edit</button></td>
-
-               <td><td><button type="button" class="btn btn-warning" data-bs-toggle="modal" 
-              (click)="onDeleteClick($event,i)">Delete</button></td>
+          <td>{{ project.teamSize }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-info btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              (click)="onEditClick($event, i)"
+            >
+              Edit
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              (click)="onDeleteClick($event, i)"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-<form>
-<!-- Modal -->
-<div class="modal"  role="dialog"  id="newModal" >
-  <div class="modal-dialog"  >
-    <div class="modal-content" style="width: 700px;">
-      <!-- Header -->
-      <div class="modal-header">
-        <div class="modal-title" >New Project</div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
 
-      <!-- Body -->
-      <div class="modal-body">     
-            <div class="form-group row mb-3">
+<!-- Create Modal -->
+<form>
+
+  <div class="modal" role="dialog" id="newModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 700px">
+        <!-- Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">New Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+          <div class="row mb-3">
             <label for="textProjectName" class="col-sm-4 col-form-label">Project Name</label>
             <div class="col-sm-8">
-              <input type="text" id="textProjectName" class="form-control" 
-              placeholder="Project Name" name="textProjectName" [(ngModel)]= "newProject.ProjectName" >
+              <input
+                type="text"
+                id="textProjectName"
+                class="form-control"
+                placeholder="Project Name"
+                name="textProjectName"
+                [(ngModel)]="newProject.projectName"
+              />
             </div>
           </div>
 
-           <div class="form-group row mb-3">
-            <label for="textProjectDescription" class="col-sm-4 col-form-label">Project description</label>
+          <div class="row mb-3">
+            <label for="textProjectDescription" class="col-sm-4 col-form-label"
+              >Project Description</label
+            >
             <div class="col-sm-8">
-              <textarea [(ngModel)]="newProject.ProjectDescription" placeholder="Description"
-               rows="5" style="width: 100%;" name="textProjectDescription" ></textarea>
-
+              <textarea
+                [(ngModel)]="newProject.projectDescription"
+                placeholder="Description"
+                rows="5"
+                class="form-control"
+                name="textProjectDescription"
+              ></textarea>
             </div>
           </div>
 
-
-          <div class="form-group row mb-3">
+          <div class="row mb-3">
             <label for="textDateOfStart" class="col-sm-4 col-form-label">Date of Start</label>
             <div class="col-sm-8">
-              <input type="date" id="textDateOfStart" class="form-control" 
-              placeholder="Date of start" name="textDateOfStart" [(ngModel)]= "newProject.DateOfStart" >
+              <input
+                type="date"
+                id="textDateOfStart"
+                class="form-control"
+                placeholder="Date of start"
+                name="textDateOfStart"
+                [(ngModel)]="newProject.dateOfStart"
+              />
             </div>
           </div>
 
-          <div class="form-group row mb-3">
+          <div class="row mb-3">
             <label for="textTeamSize" class="col-sm-4 col-form-label">Team Size</label>
             <div class="col-sm-8">
-              <input type="text" id="textTeamSize" class="form-control" 
-              placeholder="Team size" name="textTeamSize" [(ngModel)]= "newProject.TeamSize" >
+              <iSnput
+                type="text"
+                id="textTeamSize"
+                class="form-control"
+                placeholder="Team size"
+                name="textTeamSize"
+                [(ngModel)]="newProject.teamSize"
+              />
             </div>
           </div>
+        </div>
 
-     
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+            (click)="onSaveClick()"
+          >
+            Save
+          </button>
+        </div>
       </div>
-
-      <!-- Footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onSaveClick()">Save</button>
-      </div>
-
     </div>
   </div>
-</div>
 </form>
 
+<!-- Edit Modal -->
+<form>
+  <div class="modal" role="dialog" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 700px">
+        <!-- Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Project</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
 
-
-
-
-
-
-
-
-<!-- For editing -->
-<form> 
-<!-- Modal -->
-<div class="modal"  role="dialog"  id="editModal" >
-  <div class="modal-dialog"  >
-    <div class="modal-content" style="width: 700px;">
-      <!-- Header -->
-      <div class="modal-header">
-        <div class="modal-title" >Edit Project</div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-
-      <!-- Body -->
-      <div class="modal-body">     
-            <div class="form-group row mb-3">
+        <!-- Body -->
+        <div class="modal-body">
+          <div class="row mb-3">
             <label for="textEditProjectName" class="col-sm-4 col-form-label">Project Name</label>
             <div class="col-sm-8">
-              <input type="text" id="textEditProjectName" class="form-control" 
-              placeholder="Project Name" name="textEditProjectName" [(ngModel)]= "editProject.projectName" >
+              <input
+                type="text"
+                id="textEditProjectName"
+                class="form-control"
+                placeholder="Project Name"
+                name="textEditProjectName"
+                [(ngModel)]="editProject.projectName"
+              />
             </div>
           </div>
 
-           <div class="form-group row mb-3">
-            <label for="textEditProjectDescription" class="col-sm-4 col-form-label">Project description</label>
+          <div class="row mb-3">
+            <label for="textEditProjectDescription" class="col-sm-4 col-form-label"
+              >Project Description</label
+            >
             <div class="col-sm-8">
-              <textarea [(ngModel)]="editProject.projectDescription" placeholder="Description"
-               rows="5" style="width: 100%;" name="textEditProjectDescription" ></textarea>
-
+              <textarea
+                [(ngModel)]="editProject.projectDescription"
+                placeholder="Description"
+                rows="5"
+                class="form-control"
+                name="textEditProjectDescription"
+              ></textarea>
             </div>
           </div>
 
-
-          <div class="form-group row mb-3">
+          <div class="row mb-3">
             <label for="textEditDateOfStart" class="col-sm-4 col-form-label">Date of Start</label>
             <div class="col-sm-8">
-              <input type="date" id="textEditDateOfStart" class="form-control" 
-              placeholder="Date of start" name="textEditDateOfStart" [(ngModel)]= "editProject.dateOfStart" >
+              <input
+                type="date"
+                id="textEditDateOfStart"
+                class="form-control"
+                placeholder="Date of start"
+                name="textEditDateOfStart"
+                [(ngModel)]="editProject.dateOfStart"
+              />
             </div>
           </div>
 
-          <div class="form-group row mb-3">
+          <div class="row mb-3">
             <label for="textEditTeamSize" class="col-sm-4 col-form-label">Team Size</label>
             <div class="col-sm-8">
-              <input type="text" id="textEditTeamSize" class="form-control" 
-              placeholder="Team size" name="textEditTeamSize" [(ngModel)]= "editProject.teamSize" >
+              <input
+                type="text"
+                id="textEditTeamSize"
+                class="form-control"
+                placeholder="Team size"
+                name="textEditTeamSize"
+                [(ngModel)]="editProject.teamSize"
+              />
             </div>
           </div>
+        </div>
 
-     
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-dismiss="modal"
+
+          >
+            Update
+          </button>
+        </div>
       </div>
-
-      <!-- Footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="onUpdateClick()">Update</button>
-      </div>
-
     </div>
   </div>
-</div>
 </form>
