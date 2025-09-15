@@ -6,6 +6,7 @@ import { Project } from '../models/project';
 import { ProjectAddRequest } from '../models/project-add-request';
 import { ProjectResponse } from '../models/project-response';
 import { environment } from '../environment';
+import { map } from 'rxjs';
 
 
 @Injectable({
@@ -19,7 +20,22 @@ export class ManageProjectServiceService {
        const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
-     return this.httpClient.get<ProjectResponse[]>(environment.taskManagerMicroserviceUrl,{params});  
+     return this.httpClient.get<ProjectResponse[]>(environment.taskManagerMicroserviceUrl,{params})
+     .pipe(
+      map(
+         (data:Project[]) =>
+         {
+            for(let i=0; i<data.length;i++)
+            {
+               data[i].teamSize = data[i].teamSize*100;
+            }
+                 return data;
+         }
+
+      )
+    
+    )
+     ;  
   }
 
   insertProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
