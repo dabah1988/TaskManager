@@ -26,6 +26,9 @@
       <li class="nav-item">
         <a class="nav-link"  routerLink="/projects">Projects</a>
       </li>
+       <li class="nav-item" *ngIf="!accountService.currentUserName">
+        <a class="nav-link"  routerLink="/register">Registration</a>
+      </li>
 
     </ul>
 
@@ -39,6 +42,32 @@
         <button class="btn btn-warning" type="button">Search</button>
       </div>
     </form>
+    <!-- 🔑 Lien Login en haut à droite -->
+    <ul class="navbar-nav ms-auto" *ngIf="!accountService.currentUserName">
+      <li class="nav-item">
+        <a class="nav-link login-link" routerLink="/login">
+          <i class="fa fa-user"></i> Login
+        </a>
+      </li>
+    </ul>
+
+    <!-- Si l'utilisateur est connecté -->
+<ul class="navbar-nav ms-auto" *ngIf="accountService.currentUserName">
+  <li class="nav-item">
+    <a class="nav-link logout-link" (click)="MyLogout()">
+      <i class="fa fa-sign-out"></i> Logout
+    </a>
+  </li>
+  <li class="nav-item d-flex align-items-center me-2">
+        <span class="navbar-text text-white">
+          👋  {{accountService.currentUserName}}
+        </span>
+      </li>
+
+
+</ul>
+
+
   </div>
 </nav>
 

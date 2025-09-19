@@ -1,0 +1,71 @@
+/* Container principal */
+.login-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Titre */
+.login-container h1 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Champs du formulaire */
+.login-form .form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+/* Effet focus */
+.login-form input:focus {
+  border-color: #4A90E2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+}
+
+/* Messages d’erreur */
+.error {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #e74c3c;
+}
+
+/* Bouton */
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background: #4A90E2;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-form button:hover {
+  background: #357ABD;
+}
+
+.login-form button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}

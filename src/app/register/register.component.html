@@ -1,0 +1,67 @@
+
+<div class="w-50 margin auto">
+<div class="form-sontainer">
+<h2>Register</h2>
+<form [formGroup]="registerForm" (ngSubmit)="registerSubmitted()">
+  <!-- Nom d'utilisateur -->
+  <div>
+    <label for="userName">Login</label>
+    <input id="userName" type="text" formControlName="userName" />
+    <div *ngIf="(registerForm.get('userName')?.touched || isRegisterSubmitted )&& registerForm.get('userName')?.hasError('required')">
+      ⚠️ Le nom d’utilisateur est obligatoire
+    </div>
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+    <div *ngIf="(registerForm.get('email')?.touched || isRegisterSubmitted )&& registerForm.get('email')?.hasError('required')">
+      ⚠️ L’email est obligatoire
+    </div>
+  </div>
+
+  <!-- Nom complet -->
+  <div>
+    <label for="fullName">Nom complet</label>
+    <input id="fullName" type="text" formControlName="fullName" />
+    <div *ngIf="(registerForm.get('fullName')?.touched || isRegisterSubmitted ) && registerForm.get('fullName')?.hasError('required')">
+      ⚠️ Le nom complet est obligatoire
+    </div>
+  </div>
+
+
+  <!-- Téléphone -->
+  <div>
+    <label for="phoneNumber">Téléphone</label>
+    <input id="phoneNumber" type="tel" formControlName="phoneNumber" />
+    <div *ngIf="(registerForm.get('phoneNumber')?.touched || isRegisterSubmitted )&& registerForm.get('phoneNumber')?.hasError('required')">
+      ⚠️ Le numéro de téléphone est obligatoire
+    </div>
+  </div>
+
+  <!-- Mot de (asse -->
+  <div>
+    <label for="password">Mot de passe</label>
+    <input id="password" type="password" formControlName="password" />
+    <div *ngIf="(registerForm.get('password')?.touched || isRegisterSubmitted ) && registerForm.get('password')?.hasError('required')">
+      ⚠️ Le mot de passe est obligatoire
+    </div>
+  </div>
+
+  <!-- Confirmation mot de passe -->
+  <div>
+    <label for="confirmPassword">Confirmer le mot de passe</label>
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" />
+    <div *ngIf="(registerForm.get('confirmPassword')?.touched || isRegisterSubmitted 
+    ) && registerForm.get('confirmPassword')?.hasError('required')">
+      ⚠️ La confirmation est obligatoire
+    </div>
+  </div>
+
+  <!-- Bouton -->
+  <button type="submit" [disabled]="registerForm.invalid">S’inscrire</button>
+</form>
+
+</div>
+</div>

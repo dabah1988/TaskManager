@@ -1,5 +1,5 @@
 export class RegisterUser {
-  username:string ="";
+  login:string ="";
   email:string="";
  fullName:string="";
  phoneNumber:string="";
