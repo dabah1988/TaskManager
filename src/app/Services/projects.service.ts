@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project';
@@ -6,14 +6,17 @@ import { environment } from '../environment';
 import { ProjectResponse } from '../models/project-response';
 import { ProjectAddRequest } from '../models/project-add-request'
 import { map } from 'rxjs';
+import { AccountService } from './account.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
-
-   constructor(private httpClient:HttpClient) 
+public myHeaders :  HttpHeaders
+   constructor(private httpClient:HttpClient, public accountService:AccountService) 
   { 
+      this.myHeaders = new HttpHeaders()
+        .set("Authorization", `Bearer ${localStorage.getItem('token')}`);
 
   }
   getProjects(pageNumber: number, pageSize: number): Observable<Project[]> {
@@ -24,7 +27,7 @@ export class ProjectsService {
 
   return this.httpClient.get<Project[]>(
     `${environment.taskManagerMicroserviceUrl}/projects`, 
-    { params }
+    { params, headers:this.myHeaders}
   ).
   pipe(map(
 (data:Project[]) =>
@@ -42,6 +45,6 @@ export class ProjectsService {
 
     addProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
   {
-    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl,{newProject});
+    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl,{newProject, headers:this.myHeaders });
   } 
 }

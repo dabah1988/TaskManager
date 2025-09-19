@@ -7,6 +7,7 @@ import { ProjectAddRequest } from '../models/project-add-request';
 import { ProjectResponse } from '../models/project-response';
 import { environment } from '../environment';
 import { map } from 'rxjs';
+import { AccountService } from './account.service';
 
 
 @Injectable({
@@ -14,13 +15,13 @@ import { map } from 'rxjs';
 })
 export class ManageProjectServiceService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, public accountService:AccountService) { }
   getProjects(pageNumber: number = 2, pageSize: number = 10):Observable<ProjectResponse[]>
   {
        const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
-     return this.httpClient.get<ProjectResponse[]>(environment.taskManagerMicroserviceUrl,{params})
+     return this.httpClient.get<ProjectResponse[]>(environment.taskManagerMicroserviceUrl,{params,headers:this.accountService.myHeaders})
      .pipe(
       map(
          (data:Project[]) =>
@@ -40,18 +41,18 @@ export class ManageProjectServiceService {
 
   insertProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
   {    
-    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl, newProject );
+    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl, newProject,{headers:this.accountService.myHeaders});
   }
 
     updateProject(existingProject:Project):Observable<Project>
   {    
     return this.httpClient.put<Project>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}`, 
-      existingProject );
+      existingProject,{headers: this.accountService.myHeaders} );
   }
 
     deleteProject(existingProject:Project):Observable<boolean>
   {    
-    return this.httpClient.delete<boolean>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}` );
+    return this.httpClient.delete<boolean>(`${environment.taskManagerMicroserviceUrl}${existingProject.projectId}`,{headers:this.accountService.myHeaders} );
   }
 
   
@@ -62,6 +63,6 @@ export class ManageProjectServiceService {
       .set('pageSize', pageSize.toString())
        .set('searchBy',searchBy)
        .set('searchText',searchText);
-    return this.httpClient.get<ProjectResponse[]>(`${environment.taskManagerMicroserviceUrl}search`,{params} );
+    return this.httpClient.get<ProjectResponse[]>(`${environment.taskManagerMicroserviceUrl}search`,{params,headers:this.accountService.myHeaders} );
   }
 }

@@ -38,15 +38,15 @@ constructor(private accountService: AccountService,private router:Router)
      {
         this.isloginSubmitted=true;
         
-        this.accountService.getLogin(this.loginForm.value).subscribe
+        this.accountService.postLogin(this.loginForm.value).subscribe
         (
            {
-             next :  (response:LoginUser) =>{
+             next :  (response:any) =>{
               console.log(response);
               this.isloginSubmitted=true;
               this.accountService.currentUserName = response.personName;
                this.accountService.currentUserEmail = response.email;
-
+                localStorage["token"] = response.token;
               this.router.navigate(['/dashboard']);
               this.loginForm.reset();         
            },

@@ -58,9 +58,10 @@ constructor(private accountService:AccountService, private router:Router)
       this.accountService.postRegister(this.registerForm.value).subscribe
       (
          {
-           next :  (response:RegisterUser) =>{
+           next :  (response:any) =>{
             console.log(response);
             this.isRegisterSubmitted=false;
+             localStorage["token"] = response.token;
             this.router.navigate(['/dashboard']);
             this.registerForm.reset();         
          },
