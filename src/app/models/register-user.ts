@@ -1,7 +1,7 @@
 export class RegisterUser {
-  login:string ="";
+  userName:string ="";
   email:string="";
- fullName:string="";
+ personName:string="";
  phoneNumber:string="";
  password:string="";
  confirmPassword:string="";

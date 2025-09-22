@@ -46,7 +46,10 @@ constructor(private accountService: AccountService,private router:Router)
               this.isloginSubmitted=true;
               this.accountService.currentUserName = response.personName;
                this.accountService.currentUserEmail = response.email;
+                localStorage.setItem("currentUserName", response.personName);
+               localStorage.setItem("currentUserEmail", response.email);
                 localStorage["token"] = response.token;
+                 localStorage["refreshToken"] = response.refreshToken;
               this.router.navigate(['/dashboard']);
               this.loginForm.reset();         
            },

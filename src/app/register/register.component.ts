@@ -21,7 +21,7 @@ constructor(private accountService:AccountService, private router:Router)
     {
       userName: new FormControl(null,[Validators.required]),
       email: new FormControl(null,[Validators.required,Validators.email]),
-      fullName: new FormControl(null,[Validators.required]),
+      personName: new FormControl(null,[Validators.required]),
       phoneNumber: new FormControl(null,[Validators.required]),
       password : new FormControl(null,[Validators.required]),
       confirmPassword
@@ -37,8 +37,8 @@ constructor(private accountService:AccountService, private router:Router)
     return this.registerForm.controls["email"];
    }
 
-   get register_fullNameControl():any{
-    return this.registerForm.controls["fullName"];
+   get register_personNameControl():any{
+    return this.registerForm.controls["personName"];
    }
    get register_loginControl():any{
     return this.registerForm.controls["login"];
@@ -62,6 +62,7 @@ constructor(private accountService:AccountService, private router:Router)
             console.log(response);
             this.isRegisterSubmitted=false;
              localStorage["token"] = response.token;
+             localStorage["refreshToken"] = response.RefreshToken;
             this.router.navigate(['/dashboard']);
             this.registerForm.reset();         
          },

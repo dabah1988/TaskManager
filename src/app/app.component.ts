@@ -28,6 +28,16 @@ export class AppComponent {
            error :()=>{}
           }
         );
-     }
-  
+   }
+
+   RefreshClicked()
+    {
+      this.accountService.postGenerateToken().subscribe(
+        {
+        next: (response:any) => { console.log(response) },
+        error: (error:Error) => { console.log(error) },
+        }
+      );
+     }  
+     
 }
