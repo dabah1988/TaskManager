@@ -17,6 +17,8 @@ export class AppComponent {
   {
 
   }
+
+ 
  MyLogout()
   {
         this.accountService.getLogout().subscribe(

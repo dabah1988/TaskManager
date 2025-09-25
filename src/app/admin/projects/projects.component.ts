@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ProjectAddRequest } from '../../models/project-add-request';
 import { Utilitaire } from '../../models/utilitaire';
 import { ProjectResponse } from '../../models/project-response';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects',
@@ -28,7 +29,7 @@ export class ProjectsComponent implements OnInit {
   constructor(private myProjectService : ManageProjectServiceService ) {
 
    }
-   
+
   ngOnInit(): void {
        this.searchByOptions = Object.keys(new Project());
         this.searchBy = this.searchByOptions.find(opt => opt ==  'name') || '';
@@ -51,7 +52,11 @@ export class ProjectsComponent implements OnInit {
           // Reset all fields
           this.newProject = new ProjectAddRequest();
         },
-      error: (err) => console.error('Error occured during insertion', err)
+      error: (err) =>
+        {
+              console.error('Error occured during insertion', err);
+              alert("une erreur est survenue pendant l'insertion"+ {err});
+        }
     });
   }
  onEditClick(event:Event,index:number) {

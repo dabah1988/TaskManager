@@ -17,8 +17,8 @@ public myHeaders :  HttpHeaders
   { 
       this.myHeaders = new HttpHeaders()
         .set("Authorization", `Bearer ${localStorage.getItem('token')}`);
-
   }
+  
   getProjects(pageNumber: number, pageSize: number): Observable<Project[]> {
   const params = {
     pageNumber: pageNumber.toString(),
@@ -27,7 +27,7 @@ public myHeaders :  HttpHeaders
 
   return this.httpClient.get<Project[]>(
     `${environment.taskManagerMicroserviceUrl}/projects`, 
-    { params, headers:this.myHeaders}
+    { params, headers:this.accountService.getAuthHeaders(),responseType:"json"}
   ).
   pipe(map(
 (data:Project[]) =>
@@ -45,6 +45,6 @@ public myHeaders :  HttpHeaders
 
     addProject(newProject:ProjectAddRequest):Observable<ProjectResponse>
   {
-    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl,{newProject, headers:this.myHeaders });
+    return this.httpClient.post<ProjectResponse>(environment.taskManagerMicroserviceUrl,{newProject, headers:this.accountService.getAuthHeaders()});
   } 
 }

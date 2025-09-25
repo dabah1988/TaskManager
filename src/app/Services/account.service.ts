@@ -19,7 +19,13 @@ public myHeaders :  HttpHeaders
     this.loadUserFromStorage();
   }
 
-
+public  getAuthHeaders(): HttpHeaders {
+  const token = localStorage.getItem('token');
+  return new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+}
   // Restaure la session côté client (appelé au démarrage et en fallback)
   loadUserFromStorage(): void {
     this.currentUserName = localStorage.getItem('currentUserName');
@@ -27,18 +33,18 @@ public myHeaders :  HttpHeaders
   }
   public postRegister(postRegister:RegisterUser):Observable<any>
   {
-          return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}register`,postRegister, {headers:this.myHeaders} );
+          return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}register`,postRegister );
   }
 
    public postLogin(loginUser:LoginUser):Observable<any>
   {
-          return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}login`,loginUser,{headers:this.myHeaders} );
+          return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}login`,loginUser );
   }
     public postGenerateToken():Observable<any>
   {
       var token = localStorage["token"];
       var refreshToken = localStorage["refreshToken"];  
-      return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}generate-new-jwt-token`, {token,refreshToken},{headers:this.myHeaders} );
+      return this.httpClient.post<any>(`${environment.registrationMicroserviceUrl}generate-new-jwt-token`, {token,refreshToken},{headers:this.getAuthHeaders()} );
   }
   
 

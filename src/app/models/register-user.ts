@@ -5,4 +5,5 @@ export class RegisterUser {
  phoneNumber:string="";
  password:string="";
  confirmPassword:string="";
+ isAdmin:boolean=false;
 }

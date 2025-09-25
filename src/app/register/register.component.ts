@@ -57,12 +57,15 @@ constructor(private accountService:AccountService, private router:Router)
       this.isRegisterSubmitted=true;
       this.accountService.postRegister(this.registerForm.value).subscribe
       (
+         
          {
            next :  (response:any) =>{
             console.log(response);
             this.isRegisterSubmitted=false;
              localStorage["token"] = response.token;
              localStorage["refreshToken"] = response.RefreshToken;
+             localStorage['currentUserName']= response.PersonName;
+              localStorage['currentUserEmail'] = response.Email;  
             this.router.navigate(['/dashboard']);
             this.registerForm.reset();         
          },
